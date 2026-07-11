@@ -7,5 +7,23 @@
     "activations": 0,
     "isActive": true,
     "createdAt": "2026-07-11T10:52:52.459Z"
+  },
+  {
+    "id": "05f8959a-b2e4-4c0d-b6cd-81860c413b7a",
+    "slug": "384d7b4aad64",
+    "robuxAmount": 100,
+    "maxActivations": 1,
+    "activations": 1,
+    "isActive": false,
+    "createdAt": "2026-07-11T11:28:09.354Z"
+  },
+  {
+    "id": "ff1eff30-148f-4d34-9e08-327b0a7f43a3",
+    "slug": "4f63ac52cf82",
+    "robuxAmount": 100,
+    "maxActivations": 1,
+    "activations": 1,
+    "isActive": false,
+    "createdAt": "2026-07-11T11:28:57.848Z"
   }
 ]
